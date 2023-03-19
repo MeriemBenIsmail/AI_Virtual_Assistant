@@ -1,9 +1,7 @@
-from datetime import datetime
-import speech_recognition as sr
-import pyttsx3
-import webbrowser
-import wikipedia
-import wolframalpha
+import speech_recognition as sr  # recognize speech input
+import pyttsx3  # text-to-speech conversion
+import webbrowser  # open web pages
+import wikipedia  # retrieve information from wikipedia
 
 # speech engine initialized
 engine = pyttsx3.init()
@@ -34,6 +32,7 @@ def parseCommand():
         input_speech = listener.listen(source)
     try:
         print('Recognizing speech...')
+        # Performs speech recognition on audio_data (an AudioData instance), using the Google Speech Recognition API.
         query = listener.recognize_google(input_speech, language='en_us')
         print(f'The input speech was: {query}')
     except Exception as exception:
@@ -46,6 +45,7 @@ def parseCommand():
 
 
 def search_wikipedia(keyword=''):
+    """Searches for a page on Wikipedia with the given keyword and returns its summary."""
     searchResults = wikipedia.search(keyword)
 
     if not searchResults:
@@ -61,7 +61,7 @@ def search_wikipedia(keyword=''):
 
 # main loop
 if __name__ == '__main__':
-    speak('All systems nominal')
+    speak('Welcome , how can I help you')
 
     while True:
         # parse command
@@ -88,5 +88,6 @@ if __name__ == '__main__':
                 speak('Querying wikipedia')
                 speak(search_wikipedia(query))
 
-        if query[0] == 'thank' and query[1] == 'you':
-            speak("You are welcome.")
+            if query[0] == 'goodbye':
+                speak("See you later.")
+                break
